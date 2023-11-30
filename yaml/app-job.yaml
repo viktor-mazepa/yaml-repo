@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: postgres-copy-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: postgres
+          image: postgres
+          command:
+            [
+              "sh",
+              "-c",
+              "pg_dump -U postgres -d database > /home/db-archive/database.bak",
+            ]
+          volumeMounts:
+            - name: db-archive
+              mountPath: /home/db-archive
+      restartPolicy: Never
+      volumes:
+        - name: db-archive
+          hostPath:
+            path: /home/db-archive

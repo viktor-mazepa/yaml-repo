@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: demo
+    run: demo
+  name: demo-pod
+spec:
+  containers:
+    - image: europe-central2-docker.pkg.dev/devops2023-405122/dev-repo/devops-demo2:v2.0.0
+      name: demo-container
+      ports:
+        - containerPort: 8080
+          name: http
+      readinessProbe:
+        httpGet:
+          path: /ready
+          port: 8080
+        initialDelaySeconds: 5
+        periodSeconds: 10
+      livenessProbe:
+        httpGet:
+          path: /
+          port: 8080
+        initialDelaySeconds: 10
+        periodSeconds: 15

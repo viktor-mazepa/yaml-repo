@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod
+  labels:
+    app: demo
+    run: demo
+spec:
+  containers:
+    - name: demo-container
+      image: europe-central2-docker.pkg.dev/devops2023-405122/dev-repo/devops-demo2:v2.0.0
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "256Mi"
+        limits:
+          cpu: "500m"
+          memory: "512Mi"
+      env:
+        - name: ENV_VAR_NAME
+          value: "env_var_value"

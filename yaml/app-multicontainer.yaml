@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+        - containerPort: 8080
+      volumeMounts:
+        - name: html-volume
+          mountPath: /html
+    - name: postgresql
+      image: postgresql
+      volumeMounts:
+        - name: db-data-volume
+          mountPath: /db-data
+volumes:
+  - name: html-volume
+    hostPath:
+      path: /home/html/
+  - name: db-data-volume
+    hostPath:
+      path: /home/db-data/
